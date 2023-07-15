@@ -23,8 +23,8 @@ export default function Container(props) {
       <ElementsSection>
         <ElementsTitle>Elements</ElementsTitle>
         <ElementsList>
-          {items.map((id) => (
-            <SortableItem2 key={id} id={id} />
+          {items.map((items) => (
+            <SortableItem2 key={items.id} items={items} />
           ))}
         </ElementsList>
       </ElementsSection>

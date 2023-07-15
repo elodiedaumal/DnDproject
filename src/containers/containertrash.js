@@ -5,7 +5,6 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { FaTrashAlt } from "react-icons/fa";
-import SortableItem from "../sortableItems/sortableItemsleft";
 
 export default function Container(props) {
   const { id, items } = props;
@@ -31,18 +30,6 @@ export default function Container(props) {
     </SortableContext>
   );
 }
-
-const ContainerEmpty = styled.div`
-  background-color: #fff;
-
-  display: flex;
-
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-`;
-
-const AreaDropText = styled.p``;
 
 const AreasSection = styled.section`
   margin: auto;

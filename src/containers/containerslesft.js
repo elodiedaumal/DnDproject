@@ -23,6 +23,7 @@ export default function Container(props) {
       <AreasSection ref={setNodeRef}>
         <AreaContainer>
           <AreaTitle>{id}</AreaTitle>
+
           {items.map((id) => (
             <SortableItem key={id} id={id} />
           ))}

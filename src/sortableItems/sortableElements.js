@@ -2,19 +2,9 @@ import styled from "styled-components";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
-export function Item(props) {
-  const { id } = props;
-
-  return (
-    <ElementBox>
-      <ElementText>{id}</ElementText>
-    </ElementBox>
-  );
-}
-
-export default function SortableItem(props) {
+export default function SortableItem({ items }) {
   const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: props.id });
+    useSortable({ id: items.id });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -23,7 +13,11 @@ export default function SortableItem(props) {
 
   return (
     <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
-      <Item id={props.id} />
+      <ElementBox>
+        {items.title === "Text" && <ElementText>{items.content}</ElementText>}
+        {items.title === "Table" && <ElementText>{items.content}</ElementText>}
+        {items.title === "Image" && <Image src={items.content} />}
+      </ElementBox>
     </div>
   );
 }
@@ -32,6 +26,13 @@ const ElementText = styled.p`
   font-size: 14px;
   color: #3a6b88;
   font-weight: 600;
+  justify-content: center;
+  align-items: center;
+`;
+const Image = styled.img`
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
 `;
 const ElementBox = styled.article`
   display: flex;

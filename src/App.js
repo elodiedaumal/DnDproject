@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
 import {
   DndContext,
   DragOverlay,
@@ -16,37 +17,11 @@ import Container2 from "./containers/Elementscontainer";
 import Container3 from "./containers/containertrash";
 import { Item } from "./sortableItems/sortableItemsleft";
 
-const defaultAnnouncements = {
-  onDragStart(id) {
-    console.log(`Picked up draggable item ${id}.`);
-  },
-  onDragOver(id, overId) {
-    if (overId) {
-      console.log(
-        `Draggable item ${id} was moved over droppable area ${overId}.`
-      );
-      return;
-    }
-
-    console.log(`Draggable item ${id} is no longer over a droppable area.`);
-  },
-  onDragEnd(id, overId) {
-    if (overId) {
-      console.log(
-        `Draggable item ${id} was dropped over droppable area ${overId}`
-      );
-      return;
-    }
-
-    console.log(`Draggable item ${id} was dropped.`);
-  },
-  onDragCancel(id) {
-    console.log(`Dragging was cancelled. Draggable item ${id} was dropped.`);
-  },
-};
+const url = "https://randomuser.me/api/";
+const defaultImage = "https://randomuser.me/api/portraits/men/75.jpg";
 
 const initialstate = {
-  root: ["1", "2", "3"],
+  root: [],
   header: [],
   body: [],
   footer: [],
@@ -56,6 +31,30 @@ const initialstate = {
 export default function App() {
   const [items, setItems] = useState(initialstate);
   const [activeId, setActiveId] = useState();
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get("https://randomuser.me/api/");
+      const data = response.data.results[0];
+      const initialestate2 = {
+        root: [
+          { id: "1", content: data.picture.thumbnail, title: "Image" },
+          { id: "2", content: data.name.first, title: "Text" },
+          { id: "3", content: data.phone, title: "Table" },
+        ],
+        header: [],
+        body: [],
+        footer: [],
+        trash: [],
+      };
+      setItems(initialestate2);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
   const handlereset = () => {
     setItems(initialstate);
@@ -71,7 +70,6 @@ export default function App() {
   return (
     <Main>
       <DndContext
-        announcements={defaultAnnouncements}
         sensors={sensors}
         collisionDetection={closestCorners}
         onDragStart={handleDragStart}
@@ -118,7 +116,7 @@ export default function App() {
     // Find the containers
     const activeContainer = findContainer(id);
     const overContainer = findContainer(overId);
-    console.log(overContainer);
+
     if (
       !activeContainer ||
       !overContainer ||
@@ -140,10 +138,17 @@ export default function App() {
         // We're at the root droppable of a container
         newIndex = overItems.length + 1;
       } else {
+        const activeElement = document.getElementById(id);
+        const overElement = document.getElementById(overId);
+
+        if (!activeElement || !overElement) {
+          return prev; // Skip updating if elements are not available
+        }
+
         const isBelowLastItem =
-          over &&
           overIndex === overItems.length - 1 &&
-          draggingRect.offsetTop > over.rect.offsetTop + over.rect.height;
+          draggingRect.offsetTop >
+            overElement.offsetTop + overElement.offsetHeight;
 
         const modifier = isBelowLastItem ? 1 : 0;
 
@@ -186,6 +191,7 @@ export default function App() {
     if (activeIndex !== overIndex) {
       setItems((items) => ({
         ...items,
+        overIndex,
         [overContainer]: arrayMove(
           items[overContainer],
           activeIndex,
