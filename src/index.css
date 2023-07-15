@@ -1,1 +1,64 @@
+::after,
+::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+}
 
+.elementIcon {
+  width: 43px;
+  height: 43px;
+  color: #3a6b88;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+.trash:hover {
+  animation: tilt-shaking 0.15s infinite;
+  color: white;
+  background-color: #3a6b88;
+}
+
+@keyframes tilt-shaking {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(5deg);
+  }
+  50% {
+    transform: rotate(0eg);
+  }
+  75% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.button {
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  border: 2px solid #3a6b88;
+  padding: 8px 16px 8px 16px;
+  color: #3a6b88;
+  font-weight: 600;
+  border-radius: 4px;
+  box-shadow: 2px 2px 5px;
+}
+.button:hover {
+  background-color: #3a6b88;
+  color: #fff;
+}

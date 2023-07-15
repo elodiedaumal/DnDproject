@@ -1,21 +1,11 @@
+import styled from "styled-components";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
 export function Item(props) {
   const { id } = props;
 
-  const style = {
-    width: "100%",
-    height: 50,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    border: "1px solid black",
-    margin: "10px 0",
-    background: "white",
-  };
-
-  return <div style={style}>{id}</div>;
+  return <DroppedItem>{id}</DroppedItem>;
 }
 
 export default function SortableItem(props) {
@@ -28,8 +18,32 @@ export default function SortableItem(props) {
   };
 
   return (
-    <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
+    <DropContainer
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+    >
       <Item id={props.id} />
-    </div>
+    </DropContainer>
   );
 }
+
+const DroppedItem = styled.div`
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+  align-items: center;
+`;
+
+const DropContainer = styled.li`
+  font-size: 14px;
+  color: #3a6b88;
+  font-weight: 600;
+  background-color: #e1dcf2;
+  border: 1px solid #e9e9e9;
+
+  border-radius: 4px;
+  padding: 24px;
+  position: relative;
+`;

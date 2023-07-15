@@ -1,3 +1,4 @@
+import styled from "styled-components";
 import React, { useState } from "react";
 import {
   DndContext,
@@ -12,12 +13,8 @@ import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 
 import Container from "./containers/containerslesft";
 import Container2 from "./containers/Elementscontainer";
+import Container3 from "./containers/containertrash";
 import { Item } from "./sortableItems/sortableItemsleft";
-
-const wrapperStyle = {
-  display: "flex",
-  flexDirection: "row",
-};
 
 const defaultAnnouncements = {
   onDragStart(id) {
@@ -48,15 +45,21 @@ const defaultAnnouncements = {
   },
 };
 
+const initialstate = {
+  root: ["1", "2", "3"],
+  header: [],
+  body: [],
+  footer: [],
+  trash: [],
+};
+
 export default function App() {
-  const [items, setItems] = useState({
-    root: ["1", "2", "3"],
-    header: [],
-    body: [],
-    footer: [],
-    trash: [],
-  });
+  const [items, setItems] = useState(initialstate);
   const [activeId, setActiveId] = useState();
+
+  const handlereset = () => {
+    setItems(initialstate);
+  };
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -66,7 +69,7 @@ export default function App() {
   );
 
   return (
-    <div style={wrapperStyle}>
+    <Main>
       <DndContext
         announcements={defaultAnnouncements}
         sensors={sensors}
@@ -75,14 +78,21 @@ export default function App() {
         onDragOver={handleDragOver}
         onDragEnd={handleDragEnd}
       >
-        <Container id='header' items={items.header} />
-        <Container id='body' items={items.body} />
-        <Container id='body' items={items.body} />
-        <Container id='trash' items={items.trash} />
-        <Container2 id='root' items={items.root} />
+        <AreasLayout>
+          <Container id='header' items={items.header} />
+          <Container id='body' items={items.body} />
+          <Container id='footer' items={items.footer} />
+          <Container3 id='trash' items={items.trash} />
+        </AreasLayout>
+        <ElementContainer>
+          <Container2 id='root' items={items.root} />
+          <button className='button' onClick={handlereset}>
+            Reset
+          </button>
+        </ElementContainer>
         <DragOverlay>{activeId ? <Item id={activeId} /> : null}</DragOverlay>
       </DndContext>
-    </div>
+    </Main>
   );
 
   function findContainer(id) {
@@ -108,7 +118,7 @@ export default function App() {
     // Find the containers
     const activeContainer = findContainer(id);
     const overContainer = findContainer(overId);
-
+    console.log(overContainer);
     if (
       !activeContainer ||
       !overContainer ||
@@ -187,3 +197,18 @@ export default function App() {
     setActiveId(null);
   }
 }
+
+const Main = styled.main`
+  display: grid;
+  grid-template-columns: 5fr 460px;
+`;
+const AreasLayout = styled.section`
+  margin: auto;
+  margin-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+`;
+const ElementContainer = styled.section`
+  position: relative;
+`;

@@ -1,20 +1,11 @@
+import styled from "styled-components";
 import { useDroppable } from "@dnd-kit/core";
 import {
   SortableContext,
-  horizontalListSortingStrategy,
+  verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 
-import SortableItem from "../sortableItems/sortableItemsleft";
 import SortableItem2 from "../sortableItems/sortableElements";
-
-const containerStyle = {
-  background: "red",
-  padding: 10,
-  margin: 10,
-  flex: 1,
-  flexDirection: "row",
-  display: "flex",
-};
 
 export default function Container(props) {
   const { id, items } = props;
@@ -27,13 +18,40 @@ export default function Container(props) {
     <SortableContext
       id={id}
       items={items}
-      strategy={horizontalListSortingStrategy}
+      strategy={verticalListSortingStrategy}
     >
-      <div ref={setNodeRef} style={containerStyle}>
-        {items.map((id) => (
-          <SortableItem2 key={id} id={id} />
-        ))}
-      </div>
+      <ElementsSection>
+        <ElementsTitle>Elements</ElementsTitle>
+        <ElementsList>
+          {items.map((id) => (
+            <SortableItem2 key={id} id={id} />
+          ))}
+        </ElementsList>
+      </ElementsSection>
     </SortableContext>
   );
 }
+
+const ElementsSection = styled.section`
+  background-color: #fafafa;
+  height: 100%;
+  min-height: 100vh;
+  padding-top: 32px;
+  border-left: 1px solid #e9e9e9;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+`;
+const ElementsList = styled.ul`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-self: center;
+  gap: 32px;
+`;
+
+const ElementsTitle = styled.h2`
+  font-size: 18px;
+  color: #3a6b88;
+  font-weight: 600;
+  padding-left: 32px;
+`;

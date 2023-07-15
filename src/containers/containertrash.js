@@ -4,7 +4,7 @@ import {
   SortableContext,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-
+import { FaTrashAlt } from "react-icons/fa";
 import SortableItem from "../sortableItems/sortableItemsleft";
 
 export default function Container(props) {
@@ -23,16 +23,9 @@ export default function Container(props) {
       <AreasSection ref={setNodeRef}>
         <AreaContainer>
           <AreaTitle>{id}</AreaTitle>
-          {items.map((id) => (
-            <SortableItem key={id} id={id} />
-          ))}
-          {items.length === 0 && (
-            <ContainerEmpty>
-              <AreaDropText>
-                Drag and drop an element within this area.
-              </AreaDropText>
-            </ContainerEmpty>
-          )}
+          <TrashContainer>
+            <FaTrashAlt className='trash' />
+          </TrashContainer>
         </AreaContainer>
       </AreasSection>
     </SortableContext>
@@ -41,21 +34,15 @@ export default function Container(props) {
 
 const ContainerEmpty = styled.div`
   background-color: #fff;
-  border: 1px dotted #3a6b88;
-  padding: 64px 32px 64px 32px;
-  border-radius: 2px;
+
   display: flex;
-  flex-direction: column-reverse;
+
   justify-content: center;
   align-items: center;
   gap: 8px;
 `;
 
-const AreaDropText = styled.p`
-  font-size: 14px;
-  color: #3f3f3f;
-  font-weight: 400;
-`;
+const AreaDropText = styled.p``;
 
 const AreasSection = styled.section`
   margin: auto;
@@ -64,18 +51,12 @@ const AreasSection = styled.section`
   gap: 24px;
 `;
 const AreaContainer = styled.div`
-  background-color: #f6f6f6;
-  border-radius: 4px;
-  padding: 16px 8px 16px 8px;
+  background-color: #fff;
+
   width: 834px;
-  text-align: center;
 `;
 const AreaTitle = styled.h2`
-  font-size: 14px;
-  color: #3a6b88;
-  font-weight: 600;
-  padding-bottom: 16px;
-  text-transform: capitalize;
+  color: #fff;
 `;
 const TrashContainer = styled.div`
   font-size: 100px;
