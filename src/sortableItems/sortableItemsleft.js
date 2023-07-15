@@ -5,7 +5,19 @@ import { CSS } from "@dnd-kit/utilities";
 export function Item(props) {
   const { id } = props;
 
-  return <DroppedItem>{id}</DroppedItem>;
+  if (id.includes("portrait")) {
+    return (
+      <DroppedItem>
+        <ElementText>
+          <Img src={id} alt='' />
+        </ElementText>
+      </DroppedItem>
+    );
+  } else if (id.includes("phone")) {
+    return <ElementText>{id}</ElementText>;
+  } else {
+    return <ElementText>{id}</ElementText>;
+  }
 }
 
 export default function SortableItem(props) {
@@ -25,6 +37,13 @@ export default function SortableItem(props) {
       {...listeners}
     >
       <Item id={props.id} />
+      {!props.id && (
+        <ContainerEmpty>
+          <AreaDropText>
+            Drag and drop an element within this area.
+          </AreaDropText>
+        </ContainerEmpty>
+      )}
     </DropContainer>
   );
 }
@@ -46,4 +65,35 @@ const DropContainer = styled.li`
   border-radius: 4px;
   padding: 24px;
   position: relative;
+`;
+
+const ElementText = styled.p`
+  font-size: 14px;
+  color: #3a6b88;
+  font-weight: 600;
+  justify-content: center;
+  align-items: center;
+`;
+const Img = styled.img`
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+`;
+
+const ContainerEmpty = styled.div`
+  background-color: #fff;
+  border: 1px dotted #3a6b88;
+  padding: 64px 32px 64px 32px;
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+`;
+
+const AreaDropText = styled.p`
+  font-size: 14px;
+  color: #3f3f3f;
+  font-weight: 400;
 `;

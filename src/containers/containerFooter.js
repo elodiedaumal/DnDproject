@@ -7,27 +7,28 @@ import {
 
 import SortableItem from "../sortableItems/sortableItemsleft";
 
-export default function Container(props) {
+export default function ContainerHeader(props) {
   const { id, items } = props;
 
   const { setNodeRef } = useDroppable({
     id,
   });
-
+  const filteredFooter = items.filter((item) => item.includes("Text"));
   return (
     <SortableContext
       id={id}
-      items={items}
+      items={filteredFooter}
       strategy={verticalListSortingStrategy}
     >
       <AreasSection ref={setNodeRef}>
         <AreaContainer>
           <AreaTitle>{id}</AreaTitle>
 
-          {items.map((id) => (
+          {filteredFooter.map((id) => (
             <SortableItem key={id} id={id} />
           ))}
-          {items.length === 0 && (
+
+          {filteredFooter.length === 0 && (
             <ContainerEmpty>
               <AreaDropText>
                 Drag and drop an element within this area.

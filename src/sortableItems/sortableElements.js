@@ -1,23 +1,52 @@
-import styled from "styled-components";
+import React from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import styled from "styled-components";
 
-export default function SortableItem({ items }) {
-  const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: items.id });
+export function Item(props) {
+  const { id } = props;
 
   const style = {
+    display: "flex",
+    flexDirection: "column",
+    gap: "8px",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#ffffff",
+    width: "110px",
+    height: "110px",
+    border: "1px solid #e9e9e9",
+    borderRadius: "4px",
+    boxShadow: "0 2px 6px 0 rgba(0, 0, 0, 0.13)",
+  };
+
+  if (id.includes("randomuser")) {
+    return (
+      <ElementText style={style}>
+        <Img src={id} alt='' />
+      </ElementText>
+    );
+  } else if (id.includes("Text")) {
+    return <ElementText style={style}>{id}</ElementText>;
+  } else if (id.includes("Table")) {
+    return <ElementText style={style}>{id}</ElementText>;
+  }
+}
+
+export default function SortableItem(props) {
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id: props.id });
+
+  const style = {
+    width: "30%",
+    marginRight: "10px",
     transform: CSS.Transform.toString(transform),
     transition,
   };
 
   return (
     <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
-      <ElementBox>
-        {items.title === "Text" && <ElementText>{items.content}</ElementText>}
-        {items.title === "Table" && <ElementText>{items.content}</ElementText>}
-        {items.title === "Image" && <Image src={items.content} />}
-      </ElementBox>
+      <Item id={props.id} />
     </div>
   );
 }
@@ -29,7 +58,7 @@ const ElementText = styled.p`
   justify-content: center;
   align-items: center;
 `;
-const Image = styled.img`
+const Img = styled.img`
   width: 100px;
   height: 100px;
   object-fit: contain;

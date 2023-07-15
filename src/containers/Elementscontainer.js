@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useDroppable } from "@dnd-kit/core";
 import {
   SortableContext,
-  verticalListSortingStrategy,
+  horizontalListSortingStrategy,
 } from "@dnd-kit/sortable";
 
 import SortableItem2 from "../sortableItems/sortableElements";
@@ -18,13 +18,13 @@ export default function Container(props) {
     <SortableContext
       id={id}
       items={items}
-      strategy={verticalListSortingStrategy}
+      strategy={horizontalListSortingStrategy}
     >
       <ElementsSection>
         <ElementsTitle>Elements</ElementsTitle>
-        <ElementsList>
-          {items.map((items) => (
-            <SortableItem2 key={items.id} items={items} />
+        <ElementsList ref={setNodeRef}>
+          {items.map((id) => (
+            <SortableItem2 key={id} id={id} />
           ))}
         </ElementsList>
       </ElementsSection>

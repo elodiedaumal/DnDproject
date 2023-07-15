@@ -12,52 +12,100 @@ import {
 } from "@dnd-kit/core";
 import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 
+import ContainerHeader from "./containers/containerHeader";
+import ContainerFooter from "./containers/containerFooter";
 import Container from "./containers/containerslesft";
 import Container2 from "./containers/Elementscontainer";
 import Container3 from "./containers/containertrash";
 import { Item } from "./sortableItems/sortableItemsleft";
 
 const url = "https://randomuser.me/api/";
-const defaultImage = "https://randomuser.me/api/portraits/men/75.jpg";
 
 const initialstate = {
-  root: [],
+  root: [
+    "https://randomuser.me/api/portraits/men/75.jpg",
+    "data.name.first",
+    "data.phone",
+  ],
   header: [],
   body: [],
   footer: [],
   trash: [],
 };
+const defaultAnnouncements = {
+  onDragStart(id) {},
+  onDragOver(id, overId) {
+    if (overId) {
+      return;
+    }
+  },
+  onDragEnd(id, overId) {
+    if (overId) {
+      return;
+    }
+  },
+  onDragCancel(id) {},
+};
 
 export default function App() {
   const [items, setItems] = useState(initialstate);
   const [activeId, setActiveId] = useState();
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const [loading, setLoading] = useState(true);
+  const [text, setText] = useState([]);
+  const [table, setTable] = useState([]);
+  const [image, setImage] = useState([]);
+  const [page, setPage] = useState(0);
+  const [index, setIndex] = useState(0);
+  const [myVariable, setMyVariable] = useState(false);
 
-  const fetchData = async () => {
+  const fetchItems = async () => {
+    setLoading(true);
+    // const urlPage = `?page=${page}`;
     try {
-      const response = await axios.get("https://randomuser.me/api/");
-      const data = response.data.results[0];
-      const initialestate2 = {
-        root: [
-          { id: "1", content: data.picture.thumbnail, title: "Image" },
-          { id: "2", content: data.name.first, title: "Text" },
-          { id: "3", content: data.phone, title: "Table" },
-        ],
-        header: [],
-        body: [],
-        footer: [],
-        trash: [],
-      };
-      setItems(initialestate2);
+      const result = await axios(
+        `https://rickandmortyapi.com/api/character/?page=1`
+      );
+      const data = result.data.results;
+      if (index === 0) {
+        const allNames = [...new Set(data.map((item) => item.name))];
+        const allImages = [...new Set(data.map((item) => item.image))];
+        const allTables = [...new Set(data.map((item) => item.created))];
+        setText(allNames.map((image) => "Text= " + image)[`${index}`]);
+        setTable(allTables.map((image) => "Table= " + image)[`${index}`]);
+        setImage(allImages[`${index}`]);
+        const initialstate2 = {
+          root: [image, text, table],
+          header: [],
+          body: [],
+          footer: [],
+          trash: [],
+        };
+        setItems(initialstate);
+      }
+
+      if (index >= 1) {
+        setText((oldText) => {
+          return [...oldText, text];
+        });
+        setTable((oldTable) => {
+          return [...oldTable, text];
+        });
+        setImage((oldImage) => {
+          return [...oldImage, text];
+        });
+      }
     } catch (error) {
       console.error("Error:", error);
     }
+    setLoading(false);
   };
 
+  useEffect(() => {
+    fetchItems();
+  }, []);
+
   const handlereset = () => {
-    setItems(initialstate);
+    fetchItems();
   };
 
   const sensors = useSensors(
@@ -66,32 +114,36 @@ export default function App() {
       coordinateGetter: sortableKeyboardCoordinates,
     })
   );
-
-  return (
-    <Main>
-      <DndContext
-        sensors={sensors}
-        collisionDetection={closestCorners}
-        onDragStart={handleDragStart}
-        onDragOver={handleDragOver}
-        onDragEnd={handleDragEnd}
-      >
-        <AreasLayout>
-          <Container id='header' items={items.header} />
-          <Container id='body' items={items.body} />
-          <Container id='footer' items={items.footer} />
-          <Container3 id='trash' items={items.trash} />
-        </AreasLayout>
-        <ElementContainer>
-          <Container2 id='root' items={items.root} />
-          <button className='button' onClick={handlereset}>
-            Reset
-          </button>
-        </ElementContainer>
-        <DragOverlay>{activeId ? <Item id={activeId} /> : null}</DragOverlay>
-      </DndContext>
-    </Main>
-  );
+  if (loading) {
+    return <div>loading...</div>;
+  } else
+    return (
+      <Main>
+        <DndContext
+          announcements={defaultAnnouncements}
+          sensors={sensors}
+          collisionDetection={closestCorners}
+          onDragStart={handleDragStart}
+          onDragOver={handleDragOver}
+          onDragEnd={handleDragEnd}
+        >
+          <AreasLayout>
+            <ContainerHeader id='header' items={items.header} />
+            {/* <Container id='header' items={items.header} /> */}
+            <Container id='body' items={items.body} />
+            <ContainerFooter id='footer' items={items.footer} />
+            <Container3 id='trash' items={items.trash} />
+          </AreasLayout>
+          <ElementContainer>
+            <Container2 id='root' items={items.root} />
+            <button className='button' onClick={handlereset}>
+              Reset
+            </button>
+          </ElementContainer>
+          <DragOverlay>{activeId ? <Item id={activeId} /> : null}</DragOverlay>
+        </DndContext>
+      </Main>
+    );
 
   function findContainer(id) {
     if (id in items) {
@@ -189,6 +241,7 @@ export default function App() {
     const overIndex = items[overContainer].indexOf(overId);
 
     if (activeIndex !== overIndex) {
+      setMyVariable(true);
       setItems((items) => ({
         ...items,
         overIndex,
