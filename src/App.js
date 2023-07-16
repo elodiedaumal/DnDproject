@@ -234,7 +234,10 @@ export default function App() {
 
 const Main = styled.main`
   display: grid;
-  grid-template-columns: 5fr 460px;
+  grid-template-columns: 1fr 460px;
+  @media (max-width: 1300px) {
+    grid-template-columns: 1fr;
+  }
 `;
 const AreasLayout = styled.section`
   margin: auto;
@@ -242,6 +245,10 @@ const AreasLayout = styled.section`
   display: flex;
   flex-direction: column;
   gap: 24px;
+  @media (max-width: 1300px) {
+    width: 100vw;
+    grid-row: 2;
+  }
 `;
 const ElementContainer = styled.section`
   position: relative;
@@ -251,6 +258,9 @@ const ElementContainer = styled.section`
   border-left: 1px solid #e9e9e9;
   justify-content: center;
   padding: 32px;
+  @media (max-width: 1300px) {
+    min-height: 0;
+  }
 `;
 const Spinner = styled.div`
   position: absolute;

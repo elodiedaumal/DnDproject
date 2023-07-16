@@ -69,6 +69,9 @@ const AreaContainer = styled.div`
   padding: 8px 8px 8px 8px;
   width: 834px;
   text-align: center;
+  @media (max-width: 1300px) {
+    width: 90%;
+  }
 `;
 const AreaTitle = styled.h2`
   font-size: 14px;

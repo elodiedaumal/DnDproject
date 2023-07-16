@@ -53,4 +53,7 @@ const TrashContainer = styled.div`
   :hover {
     padding: 10px;
   }
+  @media (max-width: 1300px) {
+    width: 90%;
+  }
 `;
