@@ -24,6 +24,8 @@ export default function App() {
   const [table, setTable] = useState([]);
   const [image, setImage] = useState([]);
 
+  // API call to get the data: called with axios
+
   const fetchItems = async () => {
     setLoading(true);
 
@@ -67,6 +69,7 @@ export default function App() {
     fetchItems();
   };
 
+  // all sensor for the drag and drop if the Items
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
@@ -74,6 +77,7 @@ export default function App() {
     })
   );
 
+  //Render of the components
   if (loading) {
     return (
       <Spinner>
@@ -112,6 +116,7 @@ export default function App() {
       </Main>
     );
 
+  // All the logic about the drag and drop of the Items and the gestion of the containers
   function findContainer(id) {
     if (id in items) {
       return id;
