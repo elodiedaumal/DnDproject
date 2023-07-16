@@ -1,70 +1,69 @@
-# Getting Started with Create React App
+# Drag and Drop Container Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+___
 
-## Available Scripts
+live site:https://elodiedaumaldragndrop.netlify.app/
 
-In the project directory, you can run:
+This is a drag and drop application built using React and the `@dnd-kit` library. It allows users to drag and drop items into different containers and provides visual feedback for the dropped items.
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+___
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+- Drag and drop functionality for items
+- Multiple containers for organizing items
+- Visual feedback for dropped items
+- Customizable class for dropped items based on the target container area
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Technologies Used
 
-### `npm run build`
+___
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- React: A JavaScript library for building user interfaces
+- `@dnd-kit/core`: A powerful and flexible drag and drop library for React
+- `@dnd-kit/sortable`: A module of `@dnd-kit/core` for sortable interactions
+- Styled Components: A CSS-in-JS library for styling React components
+- Axios: A popular HTTP client for making API requests
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Getting Started
 
-### `npm run eject`
+___
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+To run the application locally, follow these steps:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1. Clone the repository: `git clone <repository-url>`
+2. Install the dependencies: `npm install`
+3. Run the development server: `npm start`
+4. Open your browser and visit `http://localhost:3000` to see the application in action.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Usage
 
-## Learn More
+___
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Drag an item from the "Elements" container and drop it into one of the target containers: "Header," "Body," or "Footer."
+- You can reset the containers and items by clicking the "Reset" button.
 
-### Code Splitting
+## Contributing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Contributions are welcome! If you have any ideas, suggestions, or bug reports, please open an issue or submit a pull request.
 
-### Analyzing the Bundle Size
+## Credits
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+___
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- The drag and drop functionality is implemented using the `@dnd-kit` library.
+- Data for the items is fetched from the [Rick and Morty API](https://rickandmortyapi.com/).
 
-### Advanced Configuration
+## Acknowledgments
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+___
 
-### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+This project was created as a demonstration of drag and drop functionality in React using the `@dnd-kit` library. Special thanks to the authors and contributors of the libraries used in this project.
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Feel free to customize the README file according to your specific project requirements and provide more details about the project structure, deployment instructions, or any additional features or functionalities.
