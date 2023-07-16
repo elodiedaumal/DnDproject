@@ -13,6 +13,7 @@ export default function ContainerHeader(props) {
   const { setNodeRef } = useDroppable({
     id,
   });
+
   const filteredFooter = items.filter((item) => item.includes("Text"));
   return (
     <SortableContext

@@ -13,6 +13,7 @@ export default function ContainerHeader(props) {
   const { setNodeRef } = useDroppable({
     id,
   });
+
   const filteredHeader = items.filter((item) =>
     item.includes("rickandmortyapi")
   );

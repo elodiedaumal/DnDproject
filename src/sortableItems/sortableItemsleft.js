@@ -5,7 +5,7 @@ import { CSS } from "@dnd-kit/utilities";
 export function Item(props) {
   const { id } = props;
 
-  if (id.includes("portrait")) {
+  if (id.includes("https")) {
     return (
       <DroppedItem>
         <ElementText>
@@ -13,17 +13,18 @@ export function Item(props) {
         </ElementText>
       </DroppedItem>
     );
-  } else if (id.includes("phone")) {
+  }
+  if (id.includes("Text")) {
     return <ElementText>{id}</ElementText>;
-  } else {
+  } else if (id.includes("Table")) {
     return <ElementText>{id}</ElementText>;
   }
 }
 
 export default function SortableItem(props) {
+  const { id } = props;
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: props.id });
-
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
@@ -59,12 +60,10 @@ const DropContainer = styled.li`
   font-size: 14px;
   color: #3a6b88;
   font-weight: 600;
-  background-color: #e1dcf2;
+  background-color: #fff;
   border: 1px solid #e9e9e9;
-
   border-radius: 4px;
   padding: 24px;
-  position: relative;
 `;
 
 const ElementText = styled.p`

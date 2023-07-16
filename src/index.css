@@ -62,3 +62,15 @@ li {
   background-color: #3a6b88;
   color: #fff;
 }
+
+.dropped-header {
+  background-color: aqua;
+}
+
+.dropped-body {
+  background-color: rgb(174, 255, 0);
+}
+
+.dropped-footer {
+  background-color: rgb(255, 0, 0);
+}

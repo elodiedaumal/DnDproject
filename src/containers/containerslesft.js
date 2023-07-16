@@ -4,12 +4,9 @@ import {
   SortableContext,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-
 import SortableItem from "../sortableItems/sortableItemsleft";
-
 export default function Container(props) {
   const { id, items } = props;
-
   const { setNodeRef } = useDroppable({
     id,
   });
@@ -23,7 +20,6 @@ export default function Container(props) {
       <AreasSection ref={setNodeRef}>
         <AreaContainer>
           <AreaTitle>{id}</AreaTitle>
-
           {items.map((id) => (
             <SortableItem key={id} id={id} />
           ))}
@@ -39,7 +35,6 @@ export default function Container(props) {
     </SortableContext>
   );
 }
-
 const ContainerEmpty = styled.div`
   background-color: #fff;
   border: 1px dotted #3a6b88;
@@ -51,13 +46,11 @@ const ContainerEmpty = styled.div`
   align-items: center;
   gap: 8px;
 `;
-
 const AreaDropText = styled.p`
   font-size: 14px;
   color: #3f3f3f;
   font-weight: 400;
 `;
-
 const AreasSection = styled.section`
   margin: auto;
   display: flex;
