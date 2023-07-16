@@ -70,8 +70,6 @@ const ElementText = styled.p`
   font-size: 14px;
   color: #3a6b88;
   font-weight: 600;
-  justify-content: center;
-  align-items: center;
 `;
 const Img = styled.img`
   width: 100px;

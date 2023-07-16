@@ -14,24 +14,24 @@ export default function ContainerHeader(props) {
     id,
   });
 
-  const filteredHeader = items.filter((item) =>
-    item.includes("rickandmortyapi")
-  );
+  // const filteredHeader = items.filter((item) =>
+  //   item.includes("rickandmortyapi")
+  // );
   return (
     <SortableContext
       id={id}
-      items={filteredHeader}
+      items={items}
       strategy={verticalListSortingStrategy}
     >
       <AreasSection ref={setNodeRef}>
         <AreaContainer>
           <AreaTitle>{id}</AreaTitle>
 
-          {filteredHeader.map((id) => (
+          {items.map((id) => (
             <SortableItem key={id} id={id} />
           ))}
 
-          {filteredHeader.length === 0 && (
+          {items.length === 0 && (
             <ContainerEmpty>
               <AreaDropText>
                 Drag and drop an element within this area.

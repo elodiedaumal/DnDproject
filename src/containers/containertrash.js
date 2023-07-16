@@ -20,27 +20,16 @@ export default function Container(props) {
       items={items}
       strategy={verticalListSortingStrategy}
     >
-      <AreasSection ref={setNodeRef}>
+      <AreasSection className='trash' ref={setNodeRef}>
         <AreaContainer>
-          <AreaTitle>{id}</AreaTitle>
           <TrashContainer>
-            <FaTrashAlt className='trash' />
+            <FaTrashAlt />
           </TrashContainer>
         </AreaContainer>
       </AreasSection>
     </SortableContext>
   );
 }
-
-const ContainerEmpty = styled.div`
-  background-color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-`;
-
-const AreaDropText = styled.p``;
 
 const AreasSection = styled.section`
   margin: auto;
@@ -52,16 +41,16 @@ const AreaContainer = styled.div`
   background-color: #fff;
   width: 834px;
 `;
-const AreaTitle = styled.h2`
-  color: #fff;
-`;
+
 const TrashContainer = styled.div`
+  width: 100%;
   font-size: 100px;
   color: #3a6b88;
   justify-content: center;
   display: flex;
   z-index: 999;
   margin-bottom: 32px;
+  margin-top: 32px;
   :hover {
     padding: 10px;
   }

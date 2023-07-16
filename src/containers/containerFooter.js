@@ -14,22 +14,21 @@ export default function ContainerHeader(props) {
     id,
   });
 
-  const filteredFooter = items.filter((item) => item.includes("Text"));
   return (
     <SortableContext
       id={id}
-      items={filteredFooter}
+      items={items}
       strategy={verticalListSortingStrategy}
     >
       <AreasSection ref={setNodeRef}>
         <AreaContainer>
           <AreaTitle>{id}</AreaTitle>
 
-          {filteredFooter.map((id) => (
+          {items.map((id) => (
             <SortableItem key={id} id={id} />
           ))}
 
-          {filteredFooter.length === 0 && (
+          {items.length === 0 && (
             <ContainerEmpty>
               <AreaDropText>
                 Drag and drop an element within this area.
@@ -77,6 +76,6 @@ const AreaTitle = styled.h2`
   font-size: 14px;
   color: #3a6b88;
   font-weight: 600;
-  padding-bottom: 16px;
+  /* padding-bottom: 16px; */
   text-transform: capitalize;
 `;
