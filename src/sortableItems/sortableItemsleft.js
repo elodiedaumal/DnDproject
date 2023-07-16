@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { HiMiniBars4 } from "react-icons/hi2";
+import { BiTable } from "react-icons/bi";
 
 export function Item(props) {
   const { id } = props;
@@ -11,11 +13,17 @@ export function Item(props) {
         <Img src={id} alt='' />{" "}
       </DropContainer>
     );
+  } else if (id.includes("Text")) {
+    return (
+      <DropContainer>
+        <HiMiniBars4 class='elementIcon' /> <p>{id}</p>
+      </DropContainer>
+    );
   }
 
   return (
-    <DropContainer id>
-      <Text>{id}</Text>
+    <DropContainer>
+      <BiTable class='elementIcon' /> <p>{id}</p>
     </DropContainer>
   );
 }
@@ -47,15 +55,15 @@ const DropContainer = styled.li`
   font-size: 14px;
   color: #3a6b88;
   font-weight: 600;
-
+  display: flex;
   background-color: #fff;
-
+  align-items: center;
   border: 1px solid #e9e9e9;
   border-radius: 4px;
   padding: 10px;
   display: flex;
   justify-content: center;
-  text-align: center;
+  gap: 10px;
 `;
 
 const Img = styled.img`

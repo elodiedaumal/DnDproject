@@ -1,4 +1,6 @@
 import React from "react";
+import { HiMiniBars4 } from "react-icons/hi2";
+import { BiTable } from "react-icons/bi";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import styled from "styled-components";
@@ -16,13 +18,17 @@ export function Item(props) {
   } else if (id.includes("Text")) {
     return (
       <TextContainer>
-        <ElementBox>{id}</ElementBox>
+        <ElementBox>
+          <HiMiniBars4 class='elementIcon' /> <p>{id}</p>
+        </ElementBox>
       </TextContainer>
     );
   }
   return (
     <TableContainer>
-      <ElementBox>{id}</ElementBox>
+      <ElementBox>
+        <BiTable class='elementIcon' /> <p>{id}</p>
+      </ElementBox>
     </TableContainer>
   );
 }
@@ -61,6 +67,8 @@ const ElementBox = styled.article`
   height: 120px;
   border: 1px solid #e9e9e9;
   border-radius: 4px;
+  flex-direction: column;
+  gap: 10px;
 `;
 const ImageContainer = styled.div`
   position: absolute;
