@@ -11,9 +11,7 @@ import {
   useSensors,
 } from "@dnd-kit/core";
 import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
-
-import ContainerDrop from "./containers/containerHeader";
-
+import ContainerDrop from "./containers/containers";
 import ContainerRight from "./containers/Elementscontainer";
 import ContainerTrash from "./containers/containertrash";
 import { Item } from "./sortableItems/sortableItemsleft";
@@ -77,7 +75,15 @@ export default function App() {
   );
 
   if (loading) {
-    return <div>loading...</div>;
+    return (
+      <Spinner>
+        <div className='lds-facebook'>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </Spinner>
+    );
   } else
     return (
       <Main>
@@ -105,14 +111,6 @@ export default function App() {
         </DndContext>
       </Main>
     );
-
-  function findContainer(id) {
-    if (id in items) {
-      return id;
-    }
-
-    return Object.keys(items).find((key) => items[key].includes(id));
-  }
 
   function findContainer(id) {
     if (id in items) {
@@ -248,4 +246,10 @@ const ElementContainer = styled.section`
   border-left: 1px solid #e9e9e9;
   justify-content: center;
   padding: 32px;
+`;
+const Spinner = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 50%);
 `;

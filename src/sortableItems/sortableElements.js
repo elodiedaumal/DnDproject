@@ -9,7 +9,7 @@ export function Item(props) {
     return (
       <ImageContainer>
         <ElementBox>
-          <Img src={id} alt='' />
+          <Img src={id} alt='image' />
         </ElementBox>
       </ImageContainer>
     );
@@ -44,8 +44,8 @@ export default function SortableItem(props) {
 }
 
 const Img = styled.img`
-  width: 100px;
-  height: 100px;
+  width: 110px;
+  height: 110px;
   object-fit: contain;
 `;
 const ElementBox = styled.article`
@@ -57,8 +57,8 @@ const ElementBox = styled.article`
   background-color: #fff;
   display: flex;
   text-align: center;
-  width: 110px;
-  height: 110px;
+  width: 120px;
+  height: 120px;
   border: 1px solid #e9e9e9;
   border-radius: 4px;
 `;

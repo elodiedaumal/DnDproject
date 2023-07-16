@@ -7,7 +7,7 @@ import {
 
 import SortableItem from "../sortableItems/sortableItemsleft";
 
-export default function ContainerHeader(props) {
+export default function Containers(props) {
   const { id, items } = props;
 
   const { setNodeRef } = useDroppable({
@@ -15,13 +15,13 @@ export default function ContainerHeader(props) {
   });
   const getBackgroundColor = (id) => {
     if (id === "header") {
-      return "#eff4f0"; // Green color for header container
+      return "#eff4f0";
     } else if (id === "body") {
-      return "#f0f4f8"; // Blue color for body container
+      return "#f0f4f8";
     } else if (id === "footer") {
-      return "#f8f4f0"; // Orange color for footer container
+      return "#f8f4f0";
     } else {
-      return "#fff"; // Default color for other containers
+      return "#fff";
     }
   };
   const backgroundColor = getBackgroundColor(id);
@@ -64,8 +64,7 @@ const AreaDropText = styled.p`
 `;
 
 const AreaContainer = styled.div`
-  background-color: ${(props) =>
-    props.backgroundColor}; // Dynamic background color
+  background-color: ${(props) => props.backgroundColor};
   border-radius: 4px;
   padding: 8px 8px 8px 8px;
   width: 834px;
