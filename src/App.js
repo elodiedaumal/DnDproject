@@ -35,11 +35,9 @@ export default function App() {
       );
       const data = result.data.results;
 
-      const allNames = [...new Set(data.map((item) => "Text=  " + item.name))];
+      const allNames = [...new Set(data.map((item) => item.name))];
       const allImages = [...new Set(data.map((item) => item.image))];
-      const allTables = [
-        ...new Set(data.map((item) => "Table= " + item.created)),
-      ];
+      const allTables = [...new Set(data.map((item) => item.created))];
 
       setText([...new Set(allNames.map((item) => item))]);
       setTable([...new Set(allTables.map((item) => item))]);
@@ -60,7 +58,6 @@ export default function App() {
     }
     setLoading(false);
   };
-
   useEffect(() => {
     fetchItems();
   }, [loading]);
@@ -153,9 +150,8 @@ export default function App() {
       (overContainer === "body" && activeContainer === "footer") ||
       (overContainer === "footer" && activeContainer === "body") ||
       (overContainer === "header" &&
-        (id.includes("Text") || id.includes("Table"))) ||
-      (overContainer === "footer" &&
-        (id.includes("https") || id.includes("Table")))
+        (!id.includes("https") || id.includes("-"))) ||
+      (overContainer === "footer" && (id.includes("https") || id.includes("-")))
     ) {
       return;
     }

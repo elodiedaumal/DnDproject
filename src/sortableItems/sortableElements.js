@@ -15,11 +15,11 @@ export function Item(props) {
         </ElementBox>
       </ImageContainer>
     );
-  } else if (id.includes("Text")) {
+  } else if (id.includes("-")) {
     return (
       <TextContainer>
         <ElementBox>
-          <HiMiniBars4 class='elementIcon' /> <p>{id}</p>
+          <BiTable class='elementIcon' /> <p>{id}</p>
         </ElementBox>
       </TextContainer>
     );
@@ -27,7 +27,7 @@ export function Item(props) {
   return (
     <TableContainer>
       <ElementBox>
-        <BiTable class='elementIcon' /> <p>{id}</p>
+        <HiMiniBars4 class='elementIcon' /> <p>{id}</p>
       </ElementBox>
     </TableContainer>
   );

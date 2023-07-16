@@ -13,17 +13,17 @@ export function Item(props) {
         <Img src={id} alt='' />{" "}
       </DropContainer>
     );
-  } else if (id.includes("Text")) {
+  } else if (id.includes("-")) {
     return (
       <DropContainer>
-        <HiMiniBars4 class='elementIcon' /> <p>{id}</p>
+        <BiTable class='elementIcon' /> <p>{id}</p>
       </DropContainer>
     );
   }
 
   return (
     <DropContainer>
-      <BiTable class='elementIcon' /> <p>{id}</p>
+      <HiMiniBars4 class='elementIcon' /> <p>{id}</p>
     </DropContainer>
   );
 }
