@@ -40,4 +40,8 @@ const DiscardContainer = styled.div`
   align-items: center;
   color: #fff;
   font-weight: 800;
+  z-index: -999;
+  &:hover {
+    background-color: #72afd3;
+  }
 `;
