@@ -1,9 +1,6 @@
 import styled from "styled-components";
 import { useDroppable } from "@dnd-kit/core";
-import {
-  SortableContext,
-  verticalListSortingStrategy,
-} from "@dnd-kit/sortable";
+import { SortableContext } from "@dnd-kit/sortable";
 
 import SortableItem2 from "../sortableItems/sortableElements";
 

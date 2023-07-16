@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
@@ -7,18 +7,17 @@ export function Item(props) {
 
   if (id.includes("https")) {
     return (
-      <DroppedItem>
-        <ElementText>
-          <Img src={id} alt='' />
-        </ElementText>
-      </DroppedItem>
+      <DropContainer>
+        <Img src={id} alt='' />{" "}
+      </DropContainer>
     );
   }
-  if (id.includes("Text")) {
-    return <ElementText>{id}</ElementText>;
-  } else if (id.includes("Table")) {
-    return <ElementText>{id}</ElementText>;
-  }
+
+  return (
+    <DropContainer id>
+      <Text>{id}</Text>
+    </DropContainer>
+  );
 }
 
 export default function SortableItem(props) {
@@ -31,12 +30,7 @@ export default function SortableItem(props) {
   };
 
   return (
-    <DropContainer
-      ref={setNodeRef}
-      style={style}
-      {...attributes}
-      {...listeners}
-    >
+    <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
       <Item id={props.id} />
       {!props.id && (
         <ContainerEmpty>
@@ -45,36 +39,36 @@ export default function SortableItem(props) {
           </AreaDropText>
         </ContainerEmpty>
       )}
-    </DropContainer>
+    </div>
   );
 }
-
-const DroppedItem = styled.div`
-  display: flex;
-  flex-direction: column-reverse;
-  justify-content: center;
-  align-items: center;
-`;
 
 const DropContainer = styled.li`
   font-size: 14px;
   color: #3a6b88;
   font-weight: 600;
+
   background-color: #fff;
+
   border: 1px solid #e9e9e9;
   border-radius: 4px;
-  padding: 24px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
 `;
 
-const ElementText = styled.p`
-  font-size: 14px;
-  color: #3a6b88;
-  font-weight: 600;
-`;
 const Img = styled.img`
   width: 100px;
   height: 100px;
   object-fit: contain;
+`;
+const Text = styled.div`
+  width: 100px;
+  height: 100px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
 `;
 
 const ContainerEmpty = styled.div`
@@ -92,5 +86,5 @@ const ContainerEmpty = styled.div`
 const AreaDropText = styled.p`
   font-size: 14px;
   color: #3f3f3f;
-  font-weight: 400;
+  font-weight: 800;
 `;

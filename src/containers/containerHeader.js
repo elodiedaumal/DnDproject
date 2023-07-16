@@ -13,33 +13,39 @@ export default function ContainerHeader(props) {
   const { setNodeRef } = useDroppable({
     id,
   });
-
-  // const filteredHeader = items.filter((item) =>
-  //   item.includes("rickandmortyapi")
-  // );
+  const getBackgroundColor = (id) => {
+    if (id === "header") {
+      return "#eff4f0"; // Green color for header container
+    } else if (id === "body") {
+      return "#f0f4f8"; // Blue color for body container
+    } else if (id === "footer") {
+      return "#f8f4f0"; // Orange color for footer container
+    } else {
+      return "#fff"; // Default color for other containers
+    }
+  };
+  const backgroundColor = getBackgroundColor(id);
   return (
     <SortableContext
       id={id}
       items={items}
       strategy={verticalListSortingStrategy}
     >
-      <AreasSection ref={setNodeRef}>
-        <AreaContainer>
-          <AreaTitle>{id}</AreaTitle>
+      <AreaContainer ref={setNodeRef} backgroundColor={backgroundColor}>
+        <AreaTitle>{id}</AreaTitle>
 
-          {items.map((id) => (
-            <SortableItem key={id} id={id} />
-          ))}
+        {items.map((id) => (
+          <SortableItem key={id} id={id} />
+        ))}
 
-          {items.length === 0 && (
-            <ContainerEmpty>
-              <AreaDropText>
-                Drag and drop an element within this area.
-              </AreaDropText>
-            </ContainerEmpty>
-          )}
-        </AreaContainer>
-      </AreasSection>
+        {items.length === 0 && (
+          <ContainerEmpty>
+            <AreaDropText>
+              Drag and drop an element within this area.
+            </AreaDropText>
+          </ContainerEmpty>
+        )}
+      </AreaContainer>
     </SortableContext>
   );
 }
@@ -49,11 +55,6 @@ const ContainerEmpty = styled.div`
   border: 1px dotted #3a6b88;
   padding: 64px 32px 64px 32px;
   border-radius: 2px;
-  display: flex;
-  flex-direction: column-reverse;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
 `;
 
 const AreaDropText = styled.p`
@@ -62,23 +63,18 @@ const AreaDropText = styled.p`
   font-weight: 400;
 `;
 
-const AreasSection = styled.section`
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-`;
 const AreaContainer = styled.div`
-  background-color: #f6f6f6;
+  background-color: ${(props) =>
+    props.backgroundColor}; // Dynamic background color
   border-radius: 4px;
-  padding: 16px 8px 16px 8px;
+  padding: 8px 8px 8px 8px;
   width: 834px;
   text-align: center;
 `;
 const AreaTitle = styled.h2`
   font-size: 14px;
   color: #3a6b88;
-  font-weight: 600;
-  padding-bottom: 16px;
+  text-align: left;
   text-transform: capitalize;
+  font-weight: 600;
 `;

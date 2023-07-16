@@ -20,23 +20,21 @@ export default function ContainerHeader(props) {
       items={items}
       strategy={verticalListSortingStrategy}
     >
-      <AreasSection ref={setNodeRef}>
-        <AreaContainer>
-          <AreaTitle>{id}</AreaTitle>
+      <AreaContainer ref={setNodeRef}>
+        <AreaTitle>{id}</AreaTitle>
 
-          {items.map((id) => (
-            <SortableItem key={id} id={id} />
-          ))}
+        {items.map((id) => (
+          <SortableItem key={id} id={id} />
+        ))}
 
-          {items.length === 0 && (
-            <ContainerEmpty>
-              <AreaDropText>
-                Drag and drop an element within this area.
-              </AreaDropText>
-            </ContainerEmpty>
-          )}
-        </AreaContainer>
-      </AreasSection>
+        {items.length === 0 && (
+          <ContainerEmpty>
+            <AreaDropText>
+              Drag and drop an element within this area.
+            </AreaDropText>
+          </ContainerEmpty>
+        )}
+      </AreaContainer>
     </SortableContext>
   );
 }
@@ -46,11 +44,6 @@ const ContainerEmpty = styled.div`
   border: 1px dotted #3a6b88;
   padding: 64px 32px 64px 32px;
   border-radius: 2px;
-  display: flex;
-  flex-direction: column-reverse;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
 `;
 
 const AreaDropText = styled.p`
@@ -59,23 +52,19 @@ const AreaDropText = styled.p`
   font-weight: 400;
 `;
 
-const AreasSection = styled.section`
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-`;
 const AreaContainer = styled.div`
-  background-color: #f6f6f6;
+  /* background-color: #eff4f0; */
+  background-color: ${(props) =>
+    props.backgroundColor}; // Dynamic background color
   border-radius: 4px;
-  padding: 16px 8px 16px 8px;
+  padding: 8px 8px 8px 8px;
   width: 834px;
   text-align: center;
 `;
 const AreaTitle = styled.h2`
   font-size: 14px;
   color: #3a6b88;
-  font-weight: 600;
-  /* padding-bottom: 16px; */
+  text-align: left;
   text-transform: capitalize;
+  font-weight: 600;
 `;

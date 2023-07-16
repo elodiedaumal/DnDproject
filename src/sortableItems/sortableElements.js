@@ -49,7 +49,7 @@ const Img = styled.img`
   object-fit: contain;
 `;
 const ElementBox = styled.article`
-  font-size: 14px;
+  font-size: 12px;
   color: #3a6b88;
   font-weight: 600;
   justify-content: center;

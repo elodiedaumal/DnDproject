@@ -11,42 +11,12 @@ import {
   useSensors,
 } from "@dnd-kit/core";
 import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
-import { initialdata } from "./data";
-import ContainerHeader from "./containers/containerHeader";
-import ContainerFooter from "./containers/containerFooter";
-import ContainerBody from "./containers/containerslesft";
+
+import ContainerDrop from "./containers/containerHeader";
+
 import ContainerRight from "./containers/Elementscontainer";
 import ContainerTrash from "./containers/containertrash";
 import { Item } from "./sortableItems/sortableItemsleft";
-
-const defaultAnnouncements = {
-  onDragStart(id) {
-    console.log(`Picked up draggable item ${id}.`);
-  },
-  onDragOver(id, overId) {
-    if (overId) {
-      console.log(
-        `Draggable item ${id} was moved over droppable area ${overId}.`
-      );
-      return;
-    }
-
-    console.log(`Draggable item ${id} is no longer over a droppable area.`);
-  },
-  onDragEnd(id, overId) {
-    if (overId) {
-      console.log(
-        `Draggable item ${id} was dropped over droppable area ${overId}`
-      );
-      return;
-    }
-
-    console.log(`Draggable item ${id} was dropped.`);
-  },
-  onDragCancel(id) {
-    console.log(`Dragging was cancelled. Draggable item ${id} was dropped.`);
-  },
-};
 
 export default function App() {
   const [items, setItems] = useState([]);
@@ -112,7 +82,6 @@ export default function App() {
     return (
       <Main>
         <DndContext
-          announcements={defaultAnnouncements}
           sensors={sensors}
           collisionDetection={closestCorners}
           onDragStart={handleDragStart}
@@ -120,9 +89,10 @@ export default function App() {
           onDragEnd={handleDragEnd}
         >
           <AreasLayout>
-            <ContainerHeader id='header' items={items.header} />
-            <ContainerBody id='body' items={items.body} />
-            <ContainerFooter id='footer' items={items.footer} />
+            <ContainerDrop id='header' items={items.header} />
+            <ContainerDrop id='body' items={items.body} />
+            <ContainerDrop id='footer' items={items.footer} />
+
             <ContainerTrash id='trash' items={items.trash} />
           </AreasLayout>
           <ElementContainer>
@@ -168,9 +138,6 @@ export default function App() {
     const activeContainer = findContainer(id);
     const overContainer = findContainer(overId);
 
-    console.log(`active index ${activeContainer} dragover`);
-    console.log(`over index ${overContainer}`);
-
     if (
       !activeContainer ||
       !overContainer ||
@@ -178,30 +145,18 @@ export default function App() {
     ) {
       return;
     }
+
     if (
       (overContainer === "body" && activeContainer === "footer") ||
-      (overContainer === "footer" && activeContainer === "body")
+      (overContainer === "footer" && activeContainer === "body") ||
+      (overContainer === "header" &&
+        (id.includes("Text") || id.includes("Table"))) ||
+      (overContainer === "footer" &&
+        (id.includes("https") || id.includes("Table")))
     ) {
       return;
     }
-    if (
-      (overContainer === "body" && activeContainer === "footer") ||
-      (overContainer === "footer" && activeContainer === "body")
-    ) {
-      return;
-    }
-    if (
-      (overContainer === "header" && id.includes("Text")) ||
-      (overContainer === "header" && id.includes("Table"))
-    ) {
-      return;
-    }
-    if (
-      (overContainer === "footer" && id.includes("https")) ||
-      (overContainer === "footer" && id.includes("Table"))
-    ) {
-      return;
-    }
+
     setItems((prev) => {
       const activeItems = prev[activeContainer];
       const overItems = prev[overContainer];
@@ -218,6 +173,7 @@ export default function App() {
         const isBelowLastItem =
           over &&
           overIndex === overItems.length - 1 &&
+          draggingRect &&
           draggingRect.offsetTop > over.rect.offsetTop + over.rect.height;
 
         const modifier = isBelowLastItem ? 1 : 0;
@@ -246,8 +202,7 @@ export default function App() {
 
     const activeContainer = findContainer(id);
     const overContainer = findContainer(overId);
-    console.log(`active index ${activeContainer} dragend`);
-    console.log(`over index ${overContainer}`);
+
     if (
       !activeContainer ||
       !overContainer ||
