@@ -1,15 +1,10 @@
 # Drag and Drop Container Application
 
-___
-
 live site:https://elodiedaumaldragndrop.netlify.app/
 
 This is a drag and drop application built using React and the `@dnd-kit` library. It allows users to drag and drop items into different containers and provides visual feedback for the dropped items.
 
 ## Features
-
-___
-
 
 - Drag and drop functionality for items
 - Multiple containers for organizing items
@@ -18,9 +13,6 @@ ___
 
 ## Technologies Used
 
-___
-
-
 - React: A JavaScript library for building user interfaces
 - `@dnd-kit/core`: A powerful and flexible drag and drop library for React
 - `@dnd-kit/sortable`: A module of `@dnd-kit/core` for sortable interactions
@@ -28,9 +20,6 @@ ___
 - Axios: A popular HTTP client for making API requests
 
 ## Getting Started
-
-___
-
 
 To run the application locally, follow these steps:
 
@@ -41,9 +30,6 @@ To run the application locally, follow these steps:
 
 ## Usage
 
-___
-
-
 - Drag an item from the "Elements" container and drop it into one of the target containers: "Header," "Body," or "Footer."
 - You can reset the containers and items by clicking the "Reset" button.
 
@@ -53,16 +39,10 @@ Contributions are welcome! If you have any ideas, suggestions, or bug reports, p
 
 ## Credits
 
-___
-
-
 - The drag and drop functionality is implemented using the `@dnd-kit` library.
 - Data for the items is fetched from the [Rick and Morty API](https://rickandmortyapi.com/).
 
 ## Acknowledgments
-
-___
-
 
 This project was created as a demonstration of drag and drop functionality in React using the `@dnd-kit` library. Special thanks to the authors and contributors of the libraries used in this project.
 
